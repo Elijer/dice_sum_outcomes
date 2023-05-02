@@ -1,43 +1,52 @@
+from itertools import permutations, combinations_with_replacement
+from plays_possible_2 import possible_plays
+
 sides = [x for x in range(1, 7)]
-
-rolls = {}
-dice = 4
-
-# roll dice a, b and c
-counter = 1
-for a in sides:
-  for b in sides:
-    for c in sides:
-      for j in sides:
-        rolls[counter] = [a, b, c, j]
-        counter = counter + 1
-      
+rolls = [x for x in combinations_with_replacement(sides, 4)]
 plays = []
-      
+
 for r in rolls:
-  roll = rolls[r]
-  roll.append(roll[0] + roll[1])
-  roll.append(roll[1] + roll[2])
-  roll.append(roll[0] + roll[2])
+  plays = plays + possible_plays(r)
   
-  roll.append(roll[0] + roll[1] + roll[2])
-  roll.append(roll[1] + roll[2] + roll[3])
-  roll.append(roll[0] + roll[2] + roll[3])
-  roll.append(roll[0] + roll[1] + roll[3])
-  roll.append(roll[0] + roll[1] + roll[2] + roll[3])
+occ = {n: 0 for n in range(1, 14)}
+for p in plays:
+  if (p < 14):
+    occ[p] = occ[p] + 1
+
+check = 0 
+for o in occ.values():
+  prob = o/len(plays)
+  check = check + prob
+  print(f"={o}/{len(plays)}")
+
+print(f"total possibilities are: {len(plays)}")
+    
+    
+# check = 0 
+# for o in occ.values():
+#   prob = o/len(plays)
+#   check = check + prob
+#   print(f"={o}/{len(plays)}")
+#   # print(prob)
   
-  for play in roll:
-    if play < 14:
-      plays.append(play)
-      
-freqs = {}
-for possibility in range(1,14):
-  freqs[possibility] = { "occurences": 0, "chance": 0}
+# # print(check)
   
-for play in plays:
-  freqs[play]["occurences"] = freqs[play]["occurences"] + 1
+
+# plays = []
+# for r in rolls:
+#   plays = plays + possible_plays(r)
+
+# occ = {n: 0 for n in range(1, 14)}
+# for p in plays:
+#   if p < 14:
+#     occ[p] = occ[p] + 1
+#   # occ[r] = occ[r] + 1
   
-for freq in freqs:
-  freqs[freq]["chance"] =  freqs[freq]["occurences"] / len(plays)
-  freqs[freq]["examplanation"] = f"Out of a total of {len(plays)}, {freq} would be playable about {freqs[freq]['occurences']} times"
-  print(freqs[freq]["chance"])
+# check = 0 
+# for o in occ.values():
+#   prob = o/len(plays)
+#   check = check + prob
+#   print(f"={o}/{len(plays)}")
+#   # print(prob)
+  
+# # print(check)
