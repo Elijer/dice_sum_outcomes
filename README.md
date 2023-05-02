@@ -3,13 +3,14 @@
 I wish I had a single file that did all this, but it was faster to just simulate each dice scenario separately, so what you see is a file for 2, 3, and 4 dice. The calculations for one dice are trivial - the likelihood of each "play" is `1/6`.
 
 Let me define what a "play" is here - a play is any number you can reach by using the value of just one dice or any additional dice available. For example, if you have three dice to roll and you roll [1, 5, 6], then any of the following would be valid "plays":
-1
-5
-6
-1 + 5 = 6
-5 + 6 = 6
-1 + 6 = 7
-1 + 5 + 6 = 12
+
+- 1
+- 5
+- 6
+- 1 + 5 = 6
+- 5 + 6 = 6
+- 1 + 6 = 7
+- 1 + 5 + 6 = 12
 
 Therefore, for this roll, you could play: 1, 5, 6, 6, 6, 7, 12.
 
